@@ -1,0 +1,207 @@
+automacro LeaveTrainingGround {
+	JobID 0
+	InMap new_1-3
+	JobLevel = 10
+	exclusive 1
+	run-once 1
+	macro_delay 2
+	call {
+		[
+			do conf route_randomWalk 0
+			do conf attackAuto -1
+		]
+		do move new_1-4 99 22
+		do conf tgQuest TalkToFinalTester
+		log Quest was set to: TalkToFinalTester
+	}
+	timeout 10
+}
+
+automacro TalkToFinalTester {
+	JobID 0
+	NpcNear /Final Tester/
+	ConfigKey tgQuest TalkToFinalTester
+	exclusive 1
+	run-once 1
+	macro_delay 20
+	call {
+		do talknpc 100 29 c w1 c w1 c w1 c w1 c w1 c r0 c w1 r2 c w1 c w1 c w1 c w1 c
+		[
+			log TalkToFinalTester: Quest Done
+			do conf tgQuest none
+			do conf -f jobQuest Thief 
+			log jobQuest was set to: Thief
+			do conf route_randomWalk 1
+			do conf attackAuto 2
+			do conf statsAddAuto 1
+			do conf statsAddAuto_list 10 str, 10 agi, 10 dex, 20 str, 10 vit, 30 agi, 20 dex, 40 str, 60 agi, 30 dex, 30 vit
+			do conf statsAddAuto_dontUseBonus 1
+			do conf statsAdd_over_99 1
+			do conf skillsAddAuto 1
+			do conf skillsAddAuto_list NV_BASIC 9, TF_DOUBLE 5, TF_MISS 5, TF_STEAL 10, TF_DOUBLE 5, TF_MISS 5
+		]
+	}
+}
+
+automacro SetThiefQuest {
+	JobID 0
+	InMap moc_ruins, morocc
+	ConfigKey jobQuest Thief
+	exclusive 1
+	run-once 1
+	call {
+		[
+			do conf lockMap moc_prydb1 
+			do conf lockMap_x 38
+			do conf lockMap_y 124
+		]
+		[
+			log SetThiefQuest: Settings Done
+			do conf jobQuest GoToPyramid 
+			log jobQuest was set to: GoToPyramid
+		]
+	}
+}
+
+automacro GoToPyramid {
+	JobID 0
+	NpcNear /Thief Guide/
+	InMap moc_prydb1
+	ConfigKey jobQuest GoToPyramid
+	exclusive 1
+	run-once 1
+	macro_delay 20
+	call {
+		do talknpc 39 129 c r0 c c r0 c c r0 c c c r0 c c c c r0 c 
+		[
+			do conf lockMap none
+			do conf lockMap none
+			do conf lockMap_y none
+		]
+		[
+			log GoToPyramid: Quest Done
+			do conf jobQuest GoToIrrelevant 
+			log jobQuest was set to: GoToIrrelevant
+		]
+	}
+}
+
+automacro GoToIrrelevant {
+	JobID 0
+	QuestActive 1013
+	InMap morocc, moc_ruins, moc_prydb1
+	InInventory "Orange Net Mushroom" < 5
+	InInventory "Orange Gooey Mushroom" < 12
+	exclusive 1
+	run-once 1
+	overrideAI 1
+	call {
+		do move moc_ruins &rand(135,140) &rand(119,124)
+		[
+			log GoToIrrelevant: Quest Done
+			do conf jobQuest TalkToIrrelevant 
+			log jobQuest was set to: TalkToIrrelevant
+			do conf lockMap job_thief1
+			do conf itemsTakeAuto 2
+			do conf itemsTakeAuto_party 0
+			do conf itemsGatherAuto 2
+			do conf itemsMaxWeight 89
+			do conf itemsMaxWeight_sellOrStore 48
+			do conf itemsMaxNum_sellOrStore 99
+			do conf cartMaxWeight 7900
+			do conf itemsTakeAuto_new 0
+			do conf itemsTakeGreed 0
+		]
+	}
+	timeout 5
+}
+
+automacro TalkToIrrelevant {
+	JobID 0
+	QuestActive 1013
+	NpcNear /Mr. Irrelevant/
+	InMap moc_ruins
+	ConfigKey jobQuest TalkToIrrelevant
+	exclusive 1
+	run-once 1
+	overrideAI 1
+	call {
+		do talknpc 141 125 r0
+		pause 0.8
+		do talk cont
+		pause 4
+		
+	}
+}
+
+automacro LeaveMushroomFarm {
+	JobID 0
+	InMap job_thief1
+	QuestActive 1013
+	InInventory "Orange Net Mushroom" >= 5
+	InInventory "Orange Gooey Mushroom" >= 12
+	exclusive 1
+	run-once 1
+	overrideAI 1
+	call {
+		do conf lockMap none
+		pause 0.8
+		do respawn
+		pause 5
+	}
+}
+
+automacro ChangeJobToThief {
+	JobID 0
+	InMap morocc, moc_ruins, moc_prydb1
+	QuestActive 1013
+	InInventory "Orange Net Mushroom" >= 5
+	InInventory "Orange Gooey Mushroom" >= 12
+	exclusive 1
+	run-once 1
+	overrideAI 1
+	call {
+		[
+			do conf autoResponse 1
+			do conf autoTalkCont 1
+		]
+		do move moc_prydb1 38 124
+		release ChangeJobToThief
+	}
+	timeout 60
+}
+
+automacro TalkToComrade {
+	JobID 0
+	InMap moc_prydb1
+	QuestActive 1013
+	NpcNear /Comrade/
+	QuestActive 1013
+	InInventory "Orange Net Mushroom" >= 5
+	InInventory "Orange Gooey Mushroom" >= 12
+	exclusive 1
+	run-once 1
+	overrideAI 1
+	call {
+		do talknpc 42 133
+		pause 0.8
+		do talk cont
+		pause 10
+		[
+			do eq Novice Adventurer's Suit [1]
+			do eq Novice Cutter [3]
+		]
+		pause 10
+		do respawn
+		[
+			do conf lockMap none
+			do conf tgQuest none
+			do conf jobQuest none
+		]
+		log Job Change: Thief Quest Done!
+		do relog 1800
+		do quit
+	}
+}
+
+
