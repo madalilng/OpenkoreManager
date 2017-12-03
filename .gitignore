@@ -1,9 +1,3 @@
-/Bots
-LibGit2Sharp.pdb
-MaterialDesignColors.pdb
-MaterialDesignThemes.Wpf.pdb
-openkore_manager.pdb
-LibGit2Sharp.dll.config
-openkore_manager.exe.config
-LibGit2Sharp.xml
-MaterialDesignThemes.Wpf.xml
+openkore_manager/bin/Debug
+openkore_manager/bin/Release
+openkore_manager/obj
