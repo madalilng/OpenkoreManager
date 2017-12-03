@@ -1,0 +1,2 @@
+# OpenkoreManager
+openkore manager c#
