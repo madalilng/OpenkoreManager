@@ -1,5 +1,6 @@
 # OpenkoreManager
 openkore manager c#
+using Visual Studio Community 2017 (Free)
 
 Features:
 - Clone Official Openkore Git
