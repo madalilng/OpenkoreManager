@@ -3,7 +3,9 @@ openkore_manager/bin/Debug/lib
 openkore_manager/bin/Debug/*.dll
 openkore_manager/bin/Debug/*.xml
 openkore_manager/bin/Debug/*.pdb
+openkore_manager/bin/Debug/*.exe
+openkore_manager/bin/Debug/*.config
 openkore_manager/bin/Debug/openkore
 openkore_manager/bin/Release
 openkore_manager/obj
-openkore_manager/.vs
+.vs/openkore_manager/
