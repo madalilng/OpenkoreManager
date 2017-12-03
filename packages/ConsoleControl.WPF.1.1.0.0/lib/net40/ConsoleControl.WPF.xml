@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConsoleControl.WPF</name>
+    </assembly>
+    <members>
+        <member name="T:ConsoleControl.WPF.ConsoleControl">
+            <summary>
+            Interaction logic for ConsoleControl.xaml
+            </summary>
+            <summary>
+            ConsoleControl
+            </summary>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ConsoleControl.WPF.ConsoleControl"/> class.
+            </summary>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.processInterace_OnProcessError(System.Object,ConsoleControlAPI.ProcessEventArgs)">
+            <summary>
+            Handles the OnProcessError event of the processInterace control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="args">The <see cref="T:ConsoleControlAPI.ProcessEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.processInterace_OnProcessOutput(System.Object,ConsoleControlAPI.ProcessEventArgs)">
+            <summary>
+            Handles the OnProcessOutput event of the processInterace control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="args">The <see cref="T:ConsoleControlAPI.ProcessEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.processInterace_OnProcessInput(System.Object,ConsoleControlAPI.ProcessEventArgs)">
+            <summary>
+            Handles the OnProcessInput event of the processInterace control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="args">The <see cref="T:ConsoleControlAPI.ProcessEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.processInterace_OnProcessExit(System.Object,ConsoleControlAPI.ProcessEventArgs)">
+            <summary>
+            Handles the OnProcessExit event of the processInterace control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="args">The <see cref="T:ConsoleControlAPI.ProcessEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.richTextBoxConsole_KeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Handles the KeyDown event of the richTextBoxConsole control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.WriteOutput(System.String,System.Windows.Media.Color)">
+            <summary>
+            Writes the output to the console control.
+            </summary>
+            <param name="output">The output.</param>
+            <param name="color">The color.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.ClearOutput">
+            <summary>
+            Clears the output.
+            </summary>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.WriteInput(System.String,System.Windows.Media.Color,System.Boolean)">
+            <summary>
+            Writes the input to the console control.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="color">The color.</param>
+            <param name="echo">if set to <c>true</c> echo the input.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.RunOnUIDespatcher(System.Action)">
+            <summary>
+            Runs the on UI despatcher.
+            </summary>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.StartProcess(System.String,System.String)">
+            <summary>
+            Runs a process.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <param name="arguments">The arguments.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.StopProcess">
+            <summary>
+            Stops the process.
+            </summary>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.FireProcessOutputEvent(ConsoleControlAPI.ProcessEventArgs)">
+            <summary>
+            Fires the console output event.
+            </summary>
+            <param name="args">The <see cref="T:ConsoleControlAPI.ProcessEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.FireProcessInputEvent(ConsoleControlAPI.ProcessEventArgs)">
+            <summary>
+            Fires the console input event.
+            </summary>
+            <param name="args">The <see cref="T:ConsoleControlAPI.ProcessEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:ConsoleControl.WPF.ConsoleControl.processInterace">
+            <summary>
+            The internal process interface used to interface with the process.
+            </summary>
+        </member>
+        <member name="F:ConsoleControl.WPF.ConsoleControl.inputStartPos">
+            <summary>
+            Current position that input starts at.
+            </summary>
+        </member>
+        <member name="F:ConsoleControl.WPF.ConsoleControl.lastInput">
+            <summary>
+            The last input string (used so that we can make sure we don't echo input twice).
+            </summary>
+        </member>
+        <member name="M:ConsoleControl.WPF.ConsoleControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="E:ConsoleControl.WPF.ConsoleControl.OnProcessOutput">
+            <summary>
+            Occurs when console output is produced.
+            </summary>
+        </member>
+        <member name="E:ConsoleControl.WPF.ConsoleControl.OnProcessInput">
+            <summary>
+            Occurs when console input is produced.
+            </summary>
+        </member>
+        <member name="P:ConsoleControl.WPF.ConsoleControl.ShowDiagnostics">
+            <summary>
+            Gets or sets a value indicating whether to show diagnostics.
+            </summary>
+            <value>
+              <c>true</c> if show diagnostics; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ConsoleControl.WPF.ConsoleControl.IsInputEnabled">
+            <summary>
+            Gets or sets a value indicating whether this instance has input enabled.
+            </summary>
+            <value>
+            <c>true</c> if this instance has input enabled; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ConsoleControl.WPF.ConsoleControl.IsProcessRunning">
+            <summary>
+            Gets a value indicating whether this instance has a process running.
+            </summary>
+            <value>
+            <c>true</c> if this instance has a process running; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ConsoleControl.WPF.ConsoleControl.ProcessInterface">
+            <summary>
+            Gets the internally used process interface.
+            </summary>
+            <value>
+            The process interface.
+            </value>
+        </member>
+        <member name="T:ConsoleControl.WPF.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ConsoleControl.WPF.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ConsoleControl.WPF.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>
