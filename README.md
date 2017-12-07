@@ -12,3 +12,5 @@ Features:
 ToDo:
 - Macro Editor (Select macro/eventmacro to use in Macros folder)
 - Optimize Code
+- edit bot name
+- delete bot
