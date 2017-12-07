@@ -75,6 +75,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Control\Addon.xaml.cs">
+      <DependentUpon>Addon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Configs.xaml.cs">
+      <DependentUpon>Configs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Expressions\ProcessExtensions.cs" />
     <Compile Include="ValueConverter\BaseValueConverter.cs" />
@@ -90,6 +96,14 @@
       <DependentUpon>account.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Base\BasePage.cs" />
+    <Page Include="Control\Addon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Configs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

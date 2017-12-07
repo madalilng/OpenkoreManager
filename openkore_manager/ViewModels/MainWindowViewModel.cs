@@ -41,15 +41,19 @@ namespace openkore_manager
 
         }
 
-        private void AddNewBotAsync()
+        private async void AddNewBotAsync()
         {
-            Directory.CreateDirectory(@"Bots\New" + (Bots.Count + 1));
-            foreach (var file in Directory.GetFiles(@"openkore\control"))
-                File.Copy(file, Path.Combine(@"Bots\New" + (Bots.Count + 1), Path.GetFileName(file)));
+            await RunCommandAsync(() => isBusy, async () =>
+            {
+                Directory.CreateDirectory(@"Bots\New" + (Bots.Count + 1));
+                foreach (var file in Directory.GetFiles(@"openkore\control"))
+                    File.Copy(file, Path.Combine(@"Bots\New" + (Bots.Count + 1), Path.GetFileName(file)));
 
+                Bots.Add(new ContentViewModel("New" + (Bots.Count + 1)));
+                SelectedIndex = Bots.Count - 1;
 
-            Bots.Add(new ContentViewModel("New" + (Bots.Count + 1)));
-            SelectedIndex = Bots.Count - 1;
+            });
+
         }
 
         private void LoadBots()
@@ -72,13 +76,28 @@ namespace openkore_manager
                 {
                     DisplayMessage("Cloning https://github.com/OpenKore/openkore");
                     Repository.Clone("https://github.com/OpenKore/openkore", "openkore");
+                }
+                else
+                {
+                    DisplayMessage("Updating Openkore");
+                    using (var repo = new Repository("openkore"))
+                    {
+                        PullOptions options = new PullOptions();
+                        Commands.Pull(repo, new Signature("madalilng", "rennijana@gmail.com", new DateTimeOffset(DateTime.Now)), options);
+                    }
+                }
+
+                if (!Directory.Exists("scripts"))
+                {
+                    DisplayMessage("Cloning https://github.com/iamtonysoft/legit-repo");
+                    Repository.Clone("https://github.com/iamtonysoft/legit-repo", "scripts");
                     DisplayMessage("Done");
                     HideMessage();
                 }
                 else
                 {
-                    DisplayMessage("Updating");
-                    using (var repo = new Repository("openkore"))
+                    DisplayMessage("Updating Scripts");
+                    using (var repo = new Repository("scripts"))
                     {
                         PullOptions options = new PullOptions();
                         Commands.Pull(repo, new Signature("madalilng", "rennijana@gmail.com", new DateTimeOffset(DateTime.Now)), options);
@@ -86,6 +105,7 @@ namespace openkore_manager
                     DisplayMessage("Done");
                     HideMessage();
                 }
+
                 isBusy = false;
             }));
         }

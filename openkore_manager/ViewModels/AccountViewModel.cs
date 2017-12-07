@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,40 @@ namespace openkore_manager
         public List<ConfigKeyViewModel> Configs { get; set; } = new List<ConfigKeyViewModel>();
 
         private List<string> CommonConfig { get; } = new List<string> { "username","password","char", "autoResponseOnHeal", "pauseCharServer", "pauseMapServer", "attackAuto","route_randomWalk","allowedMaps","allowedMaps_reaction","attackAuto_inLockOnly","dcPause","dcOnServerClose","dcOnServerShutDown","partyAuto","partyAutoShare","partyAutoShareItem","partyAutoShareItemDiv","route_randomWalk","teleportAuto_idle","teleportAuto_useSkill","lockMap" };
+
+        public async void EditConfigAsync( object sender, System.ComponentModel.PropertyChangedEventArgs e )
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                var s = sender as ConfigKeyViewModel;
+                StringBuilder sbText = new StringBuilder();
+
+                using (var reader = new System.IO.StreamReader(Control + "/config.txt"))
+                {
+                    string line;
+                    int counter = 0;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+
+                        if (s.index == counter)
+                        {
+                            sbText.AppendLine(s.ToString());
+                        }
+                        else
+                        {
+                            sbText.AppendLine(line);
+                        }
+                        counter++;
+                    }
+                }
+
+                using (var writer = new System.IO.StreamWriter(Control + "/config.txt"))
+                {
+                    writer.Write(sbText.ToString());
+                }
+
+            });
+        }
         public async void InitConfig()
         {
             await RunCommandAsync(() => isBusy, async () =>
@@ -38,11 +73,15 @@ namespace openkore_manager
                                 if( CommonConfig.Contains(key[0])) { 
                                     try
                                     {
-                                        Configs.Add(new ConfigKeyViewModel() { ConfigKey = key[0], Value = key[1], index = index });
+                                        var conf = new ConfigKeyViewModel(key[0], key[1], index);
+                                        conf.PropertyChanged += EditConfigAsync;
+                                        Configs.Add(conf);
                                     }
                                     catch
                                     {
-                                        Configs.Add(new ConfigKeyViewModel() { ConfigKey = key[0], Value = "", index = index });
+                                        var conf = new ConfigKeyViewModel(key[0], "", index);
+                                        conf.PropertyChanged += EditConfigAsync;
+                                        Configs.Add(conf);
                                     }
                                 }
                                 //System.Console.WriteLine(line);

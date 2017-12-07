@@ -37,22 +37,10 @@
                 </WindowsFormsHost>
 
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Column="0">
-                    <ItemsControl ItemsSource="{Binding Configs}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBox materialDesign:HintAssist.Hint="{Binding ConfigKey}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Value}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <Grid>
+                        <local:Configs/>
+                    </Grid>
                 </ScrollViewer>
-
             </Grid>
         </materialDesign:Card>
 
@@ -64,7 +52,7 @@
                     <materialDesign:PackIcon Kind="Play" Name="StartButtonIcon" Height="24" Width="24" />
                 </Button>
                 <Button Content="Main Config" Margin="5,10,5,0" />
-                <Button Content="Macro" Margin="5,10,5,0" />
+                <Button Content="Other" Margin="5,10,5,0" />
                 <Button Content="Delete" Margin="5,10,5,0" />
             </StackPanel>
         </Grid>

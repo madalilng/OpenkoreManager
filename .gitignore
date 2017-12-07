@@ -1,4 +1,5 @@
 openkore_manager/bin/Debug/Bots/**/
+openkore_manager/bin/Debug/scripts
 openkore_manager/bin/Debug/lib
 openkore_manager/bin/Debug/*.dll
 openkore_manager/bin/Debug/*.xml
