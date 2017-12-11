@@ -14,19 +14,21 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <ItemsControl ItemsSource="{Binding Configs}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBox materialDesign:HintAssist.Hint="{Binding ConfigKey}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Value}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" >
+            <ItemsControl ItemsSource="{Binding Configs}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBox materialDesign:HintAssist.Hint="{Binding ConfigKey}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Value}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

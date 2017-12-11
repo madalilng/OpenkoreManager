@@ -35,10 +35,8 @@ namespace openkore_manager
         public MainWindowViewModel()
         {
             AddNewBot = new RelayCommand(AddNewBotAsync);
-            
-            update();
+            //update();
             LoadBots();
-
         }
 
         private async void AddNewBotAsync()
@@ -48,21 +46,48 @@ namespace openkore_manager
                 Directory.CreateDirectory(@"Bots\New" + (Bots.Count + 1));
                 foreach (var file in Directory.GetFiles(@"openkore\control"))
                     File.Copy(file, Path.Combine(@"Bots\New" + (Bots.Count + 1), Path.GetFileName(file)));
-
-                Bots.Add(new ContentViewModel("New" + (Bots.Count + 1)));
+                var newbot = new ContentViewModel("New" + (Bots.Count + 1));
+                newbot.Content.ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+                Bots.Add(newbot);
                 SelectedIndex = Bots.Count - 1;
-
             });
+        }
 
+        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var s = sender as AccountViewModel;
+            if("ConfigChanged" == e.PropertyName) 
+            {
+                if(!s.ConfigChanged)
+                    LoadBots();
+            }
+            if ( e.PropertyName == "BotName")
+            {
+                List<Task> tasks = new List<Task>();
+                tasks.Add(Task.Factory.StartNew(async () =>
+                {
+                    string newname = s.BotName.Replace(' ', '_');
+                    Directory.CreateDirectory(@"Bots\" + newname);
+                    foreach (var file in Directory.GetFiles(@"Bots\" + s.oldBotname))
+                        File.Copy(file, Path.Combine(@"Bots\" + newname, Path.GetFileName(file)));
+                    foreach (var file in Directory.GetFiles(@"Bots\" + s.oldBotname))
+                        File.Delete(file);
+                    Directory.Delete(@"Bots\" + s.oldBotname);
+                }));
+                LoadBots();
+            }
         }
 
         private void LoadBots()
         {
+            Bots = new ObservableCollection<ContentViewModel>();
             DirectoryInfo directory = new DirectoryInfo("Bots");
             DirectoryInfo[] directories = directory.GetDirectories();
             foreach (var item in directories)
             {
-                Bots.Add(new ContentViewModel(item.Name));
+                var bot = new ContentViewModel(item.Name);
+                bot.Content.ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+                Bots.Add(bot);
             }
         }
 
@@ -83,7 +108,7 @@ namespace openkore_manager
                     using (var repo = new Repository("openkore"))
                     {
                         PullOptions options = new PullOptions();
-                        Commands.Pull(repo, new Signature("madalilng", "rennijana@gmail.com", new DateTimeOffset(DateTime.Now)), options);
+                        Commands.Pull(repo, new Signature("madalilng", "madalilng@gmail.com", new DateTimeOffset(DateTime.Now)), options);
                     }
                 }
 
@@ -100,7 +125,7 @@ namespace openkore_manager
                     using (var repo = new Repository("scripts"))
                     {
                         PullOptions options = new PullOptions();
-                        Commands.Pull(repo, new Signature("madalilng", "rennijana@gmail.com", new DateTimeOffset(DateTime.Now)), options);
+                        Commands.Pull(repo, new Signature("madalilng", "madalilng@gmail.com", new DateTimeOffset(DateTime.Now)), options);
                     }
                     DisplayMessage("Done");
                     HideMessage();

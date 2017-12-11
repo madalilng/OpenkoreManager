@@ -36,24 +36,34 @@
                     <WinForms:Panel x:Name="panel" Enabled="True"/>
                 </WindowsFormsHost>
 
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Column="0">
-                    <Grid>
-                        <local:Configs/>
-                    </Grid>
-                </ScrollViewer>
+
+                <Grid Grid.Column="0">
+                    <UserControl
+                Content="{Binding CurrentPage,
+                        Converter={local:ApplicationPageValueConverter}}" />
+                </Grid>
             </Grid>
         </materialDesign:Card>
 
         <Grid Grid.Column="0">
             <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         ToolTip="Start"
                         Name="StartButton" Click="Button_Start">
                     <materialDesign:PackIcon Kind="Play" Name="StartButtonIcon" Height="24" Width="24" />
                 </Button>
-                <Button Content="Main Config" Margin="5,10,5,0" />
-                <Button Content="Other" Margin="5,10,5,0" />
-                <Button Content="Delete" Margin="5,10,5,0" />
+                <Button Margin="5" Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        ToolTip="Refresh"
+                       Command="{Binding Refresh}">
+                    <materialDesign:PackIcon Kind="Refresh" Height="24" Width="24" />
+                </Button>
+                </StackPanel>
+                <Button Content="Main Config" ToolTip="edit config.txt" Command="{Binding MainConfigBtn}" Margin="5,10,5,0" />
+                <Button Content="Other" ToolTip="enable disable macros" Command="{Binding OtherBtn}" Margin="5,10,5,0" />
+                <Button Content="Duplicate" ToolTip="Copy current Settings to a new bot" Command="{Binding DuplicateBtn}" Margin="5,10,5,0" />
+                <Button Content="Delete" ToolTip="Delete This bot"  Command="{Binding DeleteBtn}" Margin="5,10,5,0" />
+                <TextBox materialDesign:HintAssist.Hint="Bot Name"  Margin="5,10,5,0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding BotName}" />
             </StackPanel>
         </Grid>
 

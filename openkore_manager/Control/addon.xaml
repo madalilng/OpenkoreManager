@@ -5,8 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:openkore_manager"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"        
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <Label Content="test"/>
+        <TreeView Grid.Row="0" ItemsSource="{Binding Addons}">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:AddonListViewModel}"
+                                              ItemsSource="{Binding Addonitem}">
+                    <TextBlock Text="{Binding Title}" Margin="3 2"/>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type local:AddonViewModel}">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding isActive}"/>
+                        <TextBlock Text="{Binding AddonKey}" Margin="3 2"/>
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
     </Grid>
 </UserControl>

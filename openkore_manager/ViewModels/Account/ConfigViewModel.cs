@@ -1,9 +1,8 @@
-﻿namespace openkore_manager
-{
-    public class ConfigViewModel : BaseViewModel
-    {
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-    }
+namespace openkore_manager
+{
 
     public class ConfigKeyViewModel : BaseViewModel
     {
@@ -22,5 +21,33 @@
             Value = val;
             index = i;
         }
+    }
+
+    public class AddonViewModel : BaseViewModel
+    {
+        public string AddonKey { get; set; }
+        public bool isActive { get; set; }
+        public bool isMacro { get; set; }
+        public int index { get; set; }
+
+        public AddonViewModel( string key , bool v ,int i, bool macro = false)
+        {
+            AddonKey = key;
+            isActive = v;
+            isMacro = macro;
+            index = i;
+        }
+    }
+    public class AddonListViewModel : BaseViewModel
+    {
+        public AddonListViewModel(string name, params AddonViewModel[] AddonVM)
+        {
+            Title = name;
+            Addonitem = new ObservableCollection<AddonViewModel>(AddonVM);
+        }
+
+        public string Title { get; set; }
+        public ObservableCollection<AddonViewModel> Addonitem { get; set; } = new ObservableCollection<AddonViewModel>();
+
     }
 }

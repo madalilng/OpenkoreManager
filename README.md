@@ -8,7 +8,9 @@ Features:
 - Create/Add new bot profile
 - Config.txt editor (save/edit)
 - Include legit repo by ( iamtonysoft )
+- Macro Selector (enable disable macros/eventmacro)
+- Rename Bot
+- Duplicate bot settings
 
 ToDo:
-- Macro Editor (Select macro/eventmacro to use in Macros folder)
 - Optimize Code

@@ -26,6 +26,7 @@ namespace openkore_manager
         {
             InitializeComponent();
             ViewModel.BotName = name;
+            ViewModel.oldBotname = name;
             ViewModel.InitConfig();
         }
 
