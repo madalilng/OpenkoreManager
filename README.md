@@ -13,11 +13,4 @@ Features:
 - Duplicate bot settings
 
 ToDo:
-<<<<<<< HEAD
 - Optimize Code
-=======
-- Macro Editor (Select macro/eventmacro to use in Macros folder)
-- Optimize Code
-- edit bot name
-- delete bot
->>>>>>> 66fd9f9da016fa1646b39ca7068a550bdec4bd13
